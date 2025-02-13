@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "338488055863",
+    "project_id": "pharma-bucket",
+    "storage_bucket": "pharma-bucket.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:338488055863:android:85aa2bf4d912f34de107b2",
+        "android_client_info": {
+          "package_name": "com.example.pharmabucket"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBqffoOndpKqt05tKN1bKgEgb5nnAMaWzQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
