@@ -91,7 +91,7 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(this@LoginActivity, "Logged in", Toast.LENGTH_SHORT).show()
                 // Store user credentials using LocalStorage
                 LocalStorage.storeUserCredentials( email,password)
-                val intent = Intent(this@LoginActivity, UserDashActivity::class.java)
+                val intent = Intent(this@LoginActivity, ProductDashboardActivity::class.java)
                 startActivity(intent)
                 finish()
             }else{

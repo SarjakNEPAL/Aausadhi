@@ -3,6 +3,7 @@ package com.example.aausadhi.repository
 import android.view.Display.Mode
 import com.example.aausadhi.model.UserModel
 import com.example.aausadhi.ui.fragment.ProfileFragment
+import com.example.aausadhi.utils.LocalStorage
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DataSnapshot
@@ -94,12 +95,12 @@ class UserRepositoryImpl : UserRepository {
     }
 
     override fun logout(callback: (Boolean, String) -> Unit) {
-        try{
+        try {
             auth.signOut()
-            callback(true,"SignOut Successfully")
-            //shared preference.clear
-        }catch (e:Exception){
-            callback(false,"Error Signing out \nreason: $e")
+            LocalStorage.clearUserCredentials()
+            callback(true, "Sign out successfully")
+        } catch (e: Exception) {
+            callback(false, "Error signing out: ${e.message}")
         }
     }
     override fun editProfile(
@@ -116,11 +117,7 @@ class UserRepositoryImpl : UserRepository {
             }
         }
     }
-
-
-    private fun clearSharedPref(callback: (Boolean) -> Unit){
-        // TODO:  clears shared preferences
-    }
+    
 
 
 }
