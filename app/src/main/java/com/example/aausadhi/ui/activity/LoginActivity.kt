@@ -32,6 +32,7 @@ class LoginActivity : AppCompatActivity() {
         enableEdgeToEdge()
         binding=ActivityLoginBinding.inflate(layoutInflater)
         loadingUtils= LoadingUtils(this@LoginActivity)
+        LocalStorage.init(this)
         sharedPreferences=getSharedPreferences("UserData", Context.MODE_PRIVATE)
         val userRepository = UserRepositoryImpl()
         userViewModel = UserViewModel(userRepository)
