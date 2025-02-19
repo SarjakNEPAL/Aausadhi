@@ -4,4 +4,13 @@
     <color name="white">#FFFFFFFF</color>
     <color name="blue">#3F51B5</color>
     <color name="red">#F44336</color>
+    <color name="text_primary">#212121</color>
+    <color name="text_secondary">#757575</color>
+    <color name="text_hint">#9E9E9E</color>
+    <color name="accent">#1976D2</color>
+    <color name="background_primary">#FFFFFF</color>
+    <color name="background_secondary">#F5F5F5</color>
+    <color name="divider">#E0E0E0</color>
+    <color name="error">#D32F2F</color>
+    <color name="success">#388E3C</color>
 </resources>

@@ -1,4 +1,4 @@
-package com.example.firebaselearn.viewmodel
+package com.example.aausadhi.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import com.example.aausadhi.model.ProductModel

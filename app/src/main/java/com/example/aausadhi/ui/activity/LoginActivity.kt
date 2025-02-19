@@ -14,7 +14,7 @@ import com.example.aausadhi.databinding.ActivityLoginBinding
 import com.example.aausadhi.repository.UserRepositoryImpl
 import com.example.aausadhi.utils.LoadingUtils
 import com.example.aausadhi.utils.LocalStorage
-import com.example.firebaselearn.viewmodel.UserViewModel
+import com.example.aausadhi.viewmodel.UserViewModel
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
