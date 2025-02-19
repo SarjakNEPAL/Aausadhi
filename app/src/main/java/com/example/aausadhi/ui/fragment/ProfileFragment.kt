@@ -8,68 +8,68 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
-import com.example.aausadhi.R
+import androidx.lifecycle.ViewModelProvider
 import com.example.aausadhi.databinding.FragmentProfileBinding
 import com.example.aausadhi.repository.UserRepositoryImpl
-import com.example.aausadhi.model.UserModel
+import com.example.aausadhi.ui.activity.LoginActivity
 import com.example.aausadhi.ui.activity.ProductDashboardActivity
-import com.example.aausadhi.ui.activity.UpdateProductActivity
+import com.example.aausadhi.ui.activity.UpdateProfileActivity
 import com.example.aausadhi.viewmodel.UserViewModel
-
+import com.example.aausadhi.utils.LocalStorage
 
 class ProfileFragment : Fragment() {
 
     lateinit var binding: FragmentProfileBinding
-
-    lateinit var userViewModel: UserViewModel
+    private lateinit var userViewModel: UserViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding=FragmentProfileBinding.inflate(inflater,container,false)
-        // Inflate the layout for this fragment
+        binding = FragmentProfileBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        var repo=UserRepositoryImpl()
-        userViewModel=UserViewModel(repo)
 
-        var currentUser= userViewModel.getCurrentUser() //gets useraUTH DATA
-        currentUser.let{
-            userViewModel.getDataFromDB(currentUser?.uid.toString())
-        }
-        //context this X , requireContext() OK
+        // Initialize ViewModel
+        val repo = UserRepositoryImpl()
+        userViewModel = UserViewModel(repo)
 
-        userViewModel.userData.observe(requireActivity()){
-            users->
-            binding.emailData .text= currentUser?.email
-            binding.nameData.text= users?.fullName
-            binding.locationData.text=users?.address
-
+        // Get the current user
+        val currentUser = userViewModel.getCurrentUser()
+        currentUser?.let {
+            userViewModel.getDataFromDB(currentUser.uid)
         }
 
-        binding.editProfile.setOnClickListener{
-            val intent= Intent(context,UpdateProductActivity::class.java)
+        // Observe user data
+        userViewModel.userData.observe(viewLifecycleOwner) { users ->
+            binding.emailData.text = currentUser?.email
+            binding.nameData.text = users?.fullName
+            binding.locationData.text = users?.address
+            binding.phoneData.text = users?.phoneNumber
+        }
+
+        // Edit profile click listener
+        binding.editProfile.setOnClickListener {
+            val intent = Intent(context, UpdateProfileActivity::class.java)
             context?.startActivity(intent)
-            (context as? FragmentActivity)?.finish()
         }
 
-        binding.logoutSection.setOnClickListener{
-            userViewModel.logout(){
-                success,message->
-                    if(success){
-                        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
-                        val intent = Intent(activity, ProductDashboardActivity::class.java)
-                        startActivity(intent)
-                        activity?.finish()
-
-                    }else{
-                        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
-                    }
-
+        // Logout click listener
+        binding.logoutSection.setOnClickListener {
+            userViewModel.logout { success, message ->
+                if (success) {
+                    // Clear user credentials
+                    LocalStorage.clearUserCredentials()
+                    Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+                    val intent = Intent(activity, LoginActivity::class.java)
+                    startActivity(intent)
+                    activity?.finish()
+                } else {
+                    Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }

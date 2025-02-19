@@ -38,5 +38,7 @@ class UserViewModel(val repo:UserRepository) {
     fun logout(callback: (Boolean, String) -> Unit){
         return repo.logout(callback)
     }
-
+    fun editProfile(userID: String,data:MutableMap<String,Any>,callback: (Boolean, String) -> Unit){
+        repo.editProfile(userID,data,callback)
+    }
 }
