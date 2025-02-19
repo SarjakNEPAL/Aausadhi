@@ -27,4 +27,9 @@ class MainActivity : AppCompatActivity() {
             insets
         }
     }
+    private fun redirectToLogin() {
+        val intent = Intent(this@MainActivity, LoginActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
 }
