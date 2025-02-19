@@ -2,6 +2,7 @@ package com.example.aausadhi.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Patterns
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -45,26 +46,53 @@ class UpdateProfileActivity : AppCompatActivity() {
         }
 
         binding.upsubmitProfile.setOnClickListener {
-            val name = binding.upNameInput.text.toString()
-            val phone = binding.upPhoneInput.text.toString()
-            val location = binding.upLocationInput.text.toString()
+            if (validateForm()) {
+                val name = binding.upNameInput.text.toString().trim()
+                val phone = binding.upPhoneInput.text.toString().trim()
+                val location = binding.upLocationInput.text.toString().trim()
 
-            val updatedUser = mutableMapOf<String, Any>()
-            updatedUser["userID"] = data.userId
-            updatedUser["fullName"] = name
-            updatedUser["phoneNumber"] = phone
-            updatedUser["address"] = location
+                val updatedUser = mutableMapOf<String, Any>()
+                updatedUser["userID"] = data.userId
+                updatedUser["fullName"] = name
+                updatedUser["phoneNumber"] = phone
+                updatedUser["address"] = location
 
-            userID?.let {
-                userViewModel.editProfile(it, updatedUser) { success, message ->
-                    if (success) {
-                        Toast.makeText(this@UpdateProfileActivity, message, Toast.LENGTH_LONG).show()
-                        finish()
-                    } else {
-                        Toast.makeText(this@UpdateProfileActivity, message, Toast.LENGTH_LONG).show()
+                userID?.let {
+                    userViewModel.editProfile(it, updatedUser) { success, message ->
+                        if (success) {
+                            Toast.makeText(this@UpdateProfileActivity, message, Toast.LENGTH_LONG).show()
+                            finish()
+                        } else {
+                            Toast.makeText(this@UpdateProfileActivity, message, Toast.LENGTH_LONG).show()
+                        }
                     }
                 }
             }
         }
+    }
+
+    private fun validateForm(): Boolean {
+        var isValid = true
+
+        val name = binding.upNameInput.text.toString().trim()
+        val phone = binding.upPhoneInput.text.toString().trim()
+        val location = binding.upLocationInput.text.toString().trim()
+
+        if (name.isEmpty()) {
+            binding.upNameInput.error = "Full name is required"
+            isValid = false
+        }
+
+        if (phone.isEmpty()) {
+            binding.upPhoneInput.error = "Phone number is required"
+            isValid = false
+        }
+
+        if (location.isEmpty()) {
+            binding.upLocationInput.error = "Location is required"
+            isValid = false
+        }
+
+        return isValid
     }
 }
