@@ -34,14 +34,16 @@ class ProfileFragment : Fragment() {
 
         var currentUser= userViewModel.getCurrentUser() //gets useraUTH DATA
         currentUser.let{
-            userViewModel.getDataFromDB(currentUser.uid.toString())
+            userViewModel.getDataFromDB(currentUser?.uid.toString())
         }
         //context this X , requireContext() OK
 
         userViewModel.userData.observe(requireActivity()){
             users->
-            binding.profileEmail.text= currentUser?.email
-            binding.profileName.text= users?.fullName
+            binding.emailData .text= currentUser?.email
+            binding.nameData.text= users?.fullName
+            binding.locationData.text=users?.address
+
         }
     }
 }

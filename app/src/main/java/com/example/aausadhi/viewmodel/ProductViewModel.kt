@@ -1,46 +1,58 @@
 package com.example.aausadhi.viewmodel
 
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.example.aausadhi.model.ProductModel
 import com.example.aausadhi.repository.ProductRepository
 
-class ProductViewModel (val repo: ProductRepository){
+class ProductViewModel(private val repo: ProductRepository) : ViewModel() {
 
-    fun addProduct(product: ProductModel, callback:(Boolean, String)->Unit){
-        repo.addProduct(product,callback)
-    }
-    fun updateProduct(id:String,data:MutableMap<String,Any>,callback: (Boolean, String) -> Unit){
-        repo.updateProduct(id,data,callback)
-    }
-    fun deleteProduct(id:String,callback: (Boolean, String) -> Unit){
-        repo.deleteProduct(id,callback)
-    }
-    var _products = MutableLiveData<ProductModel?>()
-    var products = MutableLiveData<ProductModel?>()
+    private val _products = MutableLiveData<ProductModel?>()
+    val products: MutableLiveData<ProductModel?>
         get() = _products
 
-    var _allProducts = MutableLiveData<List<ProductModel>?>()
-    var allProducts = MutableLiveData<List<ProductModel>?>()
+    private val _allProducts = MutableLiveData<List<ProductModel>?>()
+    val allProducts: MutableLiveData<List<ProductModel>?>
         get() = _allProducts
 
+    private val _loadingState = MutableLiveData<Boolean>()
+    val loadingState: MutableLiveData<Boolean>
+        get() = _loadingState
 
-    fun getProductById(productId:String){
-        repo.getProductById(productId){
-                product,success,message->
-            if(success){
+    fun addProduct(product: ProductModel, callback: (Boolean, String) -> Unit) {
+        repo.addProduct(product, callback)
+    }
+
+    fun updateProduct(id: String, data: MutableMap<String, Any>, callback: (Boolean, String) -> Unit) {
+        repo.updateProduct(id, data, callback)
+    }
+
+    fun deleteProduct(id: String, callback: (Boolean, String) -> Unit) {
+        repo.deleteProduct(id, callback)
+    }
+
+    fun getProductById(productId: String) {
+        repo.getProductById(productId) { product, success, _ ->
+            if (success) {
                 _products.value = product
             }
         }
     }
 
-    var _loadingState= MutableLiveData<Boolean>() /// make variable for particular variable
-    var loadingState= MutableLiveData<Boolean>()
-        get()=_loadingState
-    fun getAllProduct(){
+    fun getAllProduct() {
         _loadingState.value = true
-        repo.getAllProducts(){
-                products, success, message ->
-            if(success){
+        repo.getAllProducts { products, success, _ ->
+            if (success) {
+                _allProducts.value = products
+                _loadingState.value = false
+            }
+        }
+    }
+
+    fun searchProducts(query: String) {
+        _loadingState.value = true
+        repo.searchProducts(query) { products, success, _ ->
+            if (success) {
                 _allProducts.value = products
                 _loadingState.value = false
             }

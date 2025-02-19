@@ -7,87 +7,88 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
-class ProductRepositoryImpl: ProductRepository {
+class ProductRepositoryImpl : ProductRepository {
 
-    private val database: FirebaseDatabase= FirebaseDatabase.getInstance()
+    private val database: FirebaseDatabase = FirebaseDatabase.getInstance()
     private val reference: DatabaseReference = database.reference.child("products")
 
     override fun addProduct(product: ProductModel, callback: (Boolean, String) -> Unit) {
-        val id=reference.push().key.toString() //randomly generating I
-        reference.child(id).setValue(product)
-        product.id=id
+        val id = reference.push().key.toString()
+        product.id = id
         reference.child(id).setValue(product).addOnCompleteListener {
-            if(it.isSuccessful){
-                callback(true,"Product Added Successfully")
-            }else{
-                callback(false,"${it.exception?.message}")
+            if (it.isSuccessful) {
+                callback(true, "Product Added Successfully")
+            } else {
+                callback(false, "${it.exception?.message}")
             }
-
         }
     }
 
-    override fun updateProduct(
-        id: String,
-        data: MutableMap<String, Any>,
-        callback: (Boolean, String) -> Unit
-    ) {
+    override fun updateProduct(id: String, data: MutableMap<String, Any>, callback: (Boolean, String) -> Unit) {
         reference.child(id).updateChildren(data).addOnCompleteListener {
-            if(it.isSuccessful){
-                callback(true,"Product Updated Successfully")
-            }else{
-                callback(false,"${it.exception?.message}")
+            if (it.isSuccessful) {
+                callback(true, "Product Updated Successfully")
+            } else {
+                callback(false, "${it.exception?.message}")
             }
-
         }
     }
 
     override fun deleteProduct(id: String, callback: (Boolean, String) -> Unit) {
         reference.child(id).removeValue().addOnCompleteListener {
-            if(it.isSuccessful){
-                callback(true,"Product Deleted Successfully")
-            }else{
-                callback(false,"${it.exception?.message}")
+            if (it.isSuccessful) {
+                callback(true, "Product Deleted Successfully")
+            } else {
+                callback(false, "${it.exception?.message}")
             }
         }
     }
 
     override fun getProductById(id: String, callback: (ProductModel?, Boolean, String) -> Unit) {
-    reference.child(id).addValueEventListener(
-        object:ValueEventListener{
+        reference.child(id).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                if(snapshot.exists()){
-                    val model= snapshot.getValue(ProductModel::class.java)
-                    callback(model,true,"Data fetched")
-                }
+                val model = snapshot.getValue(ProductModel::class.java)
+                callback(model, true, "Data fetched")
             }
 
             override fun onCancelled(error: DatabaseError) {
-                callback(null,false, error.message)
+                callback(null, false, error.message)
             }
-        }
-
-    )
+        })
     }
 
     override fun getAllProducts(callback: (List<ProductModel>?, Boolean, String) -> Unit) {
-        reference.addValueEventListener(object:ValueEventListener{
+        reference.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                val products= mutableListOf<ProductModel>()
-                if (snapshot.exists()){
-                    for(eachProduct in snapshot.children){
-                        val model= snapshot.getValue(ProductModel::class.java)
-                        if (model !=null){
-                            products.add(model)
-                        }
-                    }
+                val products = mutableListOf<ProductModel>()
+                for (eachProduct in snapshot.children) {
+                    val model = eachProduct.getValue(ProductModel::class.java)
+                    model?.let { products.add(it) }
                 }
-                callback(products,true,"Fetched")
+                callback(products, true, "Fetched")
             }
 
             override fun onCancelled(error: DatabaseError) {
-                callback(null,false, error.message)
+                callback(null, false, error.message)
             }
-
         })
+    }
+
+    override fun searchProducts(query: String, callback: (List<ProductModel>?, Boolean, String) -> Unit) {
+        reference.orderByChild("name").startAt(query).endAt("$query\uf8ff")
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val products = mutableListOf<ProductModel>()
+                    for (eachProduct in snapshot.children) {
+                        val model = eachProduct.getValue(ProductModel::class.java)
+                        model?.let { products.add(it) }
+                    }
+                    callback(products, true, "Fetched")
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    callback(null, false, error.message)
+                }
+            })
     }
 }

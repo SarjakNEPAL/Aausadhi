@@ -25,22 +25,18 @@ class UserViewModel(val repo:UserRepository) {
     var userData=MutableLiveData<UserModel?>() //getter
         get() = _userData
 
-    fun getDataFromDB(userID: String,callback: (UserModel?, Boolean, String) -> Unit){
+    fun getDataFromDB(userID: String){
         repo.getDataFromDB(userID){
-            userModel,success,message->
-            if(success){
-
-            }
-            else{
-
+                userModel,sucess,message->
+            if(sucess){
+                _userData.value = userModel
+            }else{
+                _userData.value = null
             }
         }
     }
     fun logout(callback: (Boolean, String) -> Unit){
         return repo.logout(callback)
     }
-    fun editProfile(userID: String,data:MutableMap<String,Any>) {
-//        repo.editProfile()
-    } // <datatype,Any>
 
 }

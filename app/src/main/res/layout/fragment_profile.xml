@@ -123,7 +123,7 @@
                                 android:id="@+id/name_Data"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="John Smith"
+                                android:text="KASAIKO NAM"
                                 android:textColor="@color/text_primary"
                                 android:textSize="16sp" />
                         </LinearLayout>
@@ -158,7 +158,7 @@
                                 android:id="@+id/email_data"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="john.smith@example.com"
+                                android:text="KASAIKOEMAIL@example.com"
                                 android:textColor="@color/text_primary"
                                 android:textSize="16sp" />
                         </LinearLayout>
@@ -192,7 +192,7 @@
                                 android:id="@+id/location_data"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="San Francisco, CA"
+                                android:text="kunai thau"
                                 android:textColor="@color/text_primary"
                                 android:textSize="16sp" />
                         </LinearLayout>
@@ -265,39 +265,7 @@
                         android:layout_height="1dp"
                         android:background="@color/divider" />
 
-                    <LinearLayout
-                        android:id="@+id/backSection"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:paddingVertical="12dp"
-                        android:gravity="center_vertical"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:background="?attr/selectableItemBackground">
 
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:src="@drawable/baseline_arrow_back_ios_24"
-                            app:tint="@color/accent" />
-
-                        <TextView
-                            android:id="@+id/profileSettings"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Back to Dashboard"
-                            android:textColor="@color/text_primary"
-                            android:textSize="16sp"
-                            android:layout_marginStart="16dp" />
-
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:src="@drawable/baseline_arrow_right_24"
-                            app:tint="@color/text_secondary" />
-                    </LinearLayout>
 
                     <View
                         android:layout_width="match_parent"
