@@ -1,5 +1,6 @@
 package com.example.aausadhi.ui.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,6 +11,7 @@ import com.example.aausadhi.R
 import com.example.aausadhi.databinding.FragmentProfileBinding
 import com.example.aausadhi.repository.UserRepositoryImpl
 import com.example.aausadhi.model.UserModel
+import com.example.aausadhi.ui.activity.ProductDashboardActivity
 import com.example.aausadhi.viewmodel.UserViewModel
 
 
@@ -52,6 +54,8 @@ class ProfileFragment : Fragment() {
                 success,message->
                     if(success){
                         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+                        val intent = Intent(activity, ProductDashboardActivity::class.java)
+                        startActivity(intent)
                         activity?.finish()
 
                     }else{

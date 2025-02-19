@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.aausadhi.R
 import com.example.aausadhi.model.ProductModel
@@ -47,6 +48,7 @@ class ProductAdapter(
             val intent= Intent(context, UpdateProductActivity::class.java)
             intent.putExtra("id",productList[position].id)
             context.startActivity(intent)
+            (context as? FragmentActivity)?.finish()
         }
     }
     fun updateData(products: List<ProductModel>?){
