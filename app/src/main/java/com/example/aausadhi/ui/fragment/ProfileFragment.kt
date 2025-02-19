@@ -1,15 +1,19 @@
 package com.example.aausadhi.ui.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.FragmentActivity
 import com.example.aausadhi.R
 import com.example.aausadhi.databinding.FragmentProfileBinding
 import com.example.aausadhi.repository.UserRepositoryImpl
 import com.example.aausadhi.model.UserModel
+import com.example.aausadhi.ui.activity.ProductDashboardActivity
+import com.example.aausadhi.ui.activity.UpdateProductActivity
 import com.example.aausadhi.viewmodel.UserViewModel
 
 
@@ -47,11 +51,19 @@ class ProfileFragment : Fragment() {
 
         }
 
+        binding.editProfile.setOnClickListener{
+            val intent= Intent(context,UpdateProductActivity::class.java)
+            context?.startActivity(intent)
+            (context as? FragmentActivity)?.finish()
+        }
+
         binding.logoutSection.setOnClickListener{
             userViewModel.logout(){
                 success,message->
                     if(success){
                         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+                        val intent = Intent(activity, ProductDashboardActivity::class.java)
+                        startActivity(intent)
                         activity?.finish()
 
                     }else{

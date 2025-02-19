@@ -9,18 +9,20 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.aausadhi.R
+import com.example.aausadhi.databinding.ActivityMainBinding
 import com.example.aausadhi.repository.UserRepositoryImpl
 import com.example.aausadhi.utils.LocalStorage
 import com.example.aausadhi.viewmodel.UserViewModel
 
 class MainActivity : AppCompatActivity() {
-
+    private lateinit var binding:ActivityMainBinding
     private lateinit var userViewModel: UserViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_main)
+        binding=ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         LocalStorage.init(this)
         userViewModel = UserViewModel(UserRepositoryImpl())
 

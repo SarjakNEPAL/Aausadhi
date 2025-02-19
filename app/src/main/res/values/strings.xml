@@ -1,15 +1,11 @@
 <resources>
     <string name="app_name">Aausadhi</string>
     <string name="action_settings">Settings</string>
-
-    <!-- Product list screen -->
     <string name="add_product">Add new product</string>
     <string name="no_products_yet">No products available yet</string>
     <string name="products_loading">Loading products…</string>
     <string name="product_added">Product added successfully</string>
     <string name="product_deleted">Product deleted</string>
-
-    <!-- Form labels and buttons -->
     <string name="product_name">Product Name</string>
     <string name="product_price">Price</string>
     <string name="product_description">Description</string>
@@ -21,4 +17,7 @@
     <string name="price">Price</string>
     <string name="category">Category</string>
     <string name="description">Description</string>
+    <string name="loading">loading</string>
+    <string name="update_product">Update Product</string>
+
 </resources>

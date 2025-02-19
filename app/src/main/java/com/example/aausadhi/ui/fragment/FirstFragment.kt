@@ -88,6 +88,8 @@ class FirstFragment : Fragment() {
         binding.addProductButton.setOnClickListener {
             val intent = Intent(requireContext(), AddProductActivity::class.java)
             startActivity(intent)
+            productViewModel.getAllProduct()
+
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
