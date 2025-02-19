@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.aausadhi.adapter.ProductAdapter
+import com.example.aausadhi.adapter.SearchProductAdapter
 import com.example.aausadhi.databinding.FragmentSecondBinding
 import com.example.aausadhi.repository.ProductRepositoryImpl
 import com.example.aausadhi.viewmodel.ProductViewModel
@@ -19,7 +20,7 @@ import com.example.aausadhi.viewmodel.ProductViewModel
 class SecondFragment : Fragment() {
     private lateinit var binding: FragmentSecondBinding
     private lateinit var productViewModel: ProductViewModel
-    private lateinit var adapter: ProductAdapter
+    private lateinit var adapter: SearchProductAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,7 +33,7 @@ class SecondFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter = ProductAdapter(requireContext(), ArrayList())
+        adapter = SearchProductAdapter(requireContext(), ArrayList())
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
 

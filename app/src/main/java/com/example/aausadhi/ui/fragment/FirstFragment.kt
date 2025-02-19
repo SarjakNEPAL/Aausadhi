@@ -16,6 +16,7 @@ import com.example.aausadhi.R
 import com.example.aausadhi.adapter.ProductAdapter
 import com.example.aausadhi.databinding.FragmentFirstBinding
 import com.example.aausadhi.repository.ProductRepositoryImpl
+import com.example.aausadhi.ui.activity.AddProductActivity
 import com.example.aausadhi.viewmodel.ProductViewModel
 import java.util.ArrayList
 
@@ -85,8 +86,8 @@ class FirstFragment : Fragment() {
         }).attachToRecyclerView(binding.recyclerView)
 
         binding.addProductButton.setOnClickListener {
-//            val intent = Intent(requireContext(), AddProductActivity::class.java)
-//            startActivity(intent)
+            val intent = Intent(requireContext(), AddProductActivity::class.java)
+            startActivity(intent)
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->

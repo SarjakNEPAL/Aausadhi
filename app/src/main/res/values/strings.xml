@@ -17,4 +17,8 @@
     <string name="cancel">Cancel</string>
     <string name="delete">Delete</string>
     <string name="edit">Edit</string>
+    <string name="dosage">Dosage</string>
+    <string name="price">Price</string>
+    <string name="category">Category</string>
+    <string name="description">Description</string>
 </resources>
