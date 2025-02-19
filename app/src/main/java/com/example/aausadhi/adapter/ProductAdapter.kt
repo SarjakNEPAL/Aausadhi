@@ -2,6 +2,7 @@ package com.example.aausadhi.adapter
 
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.aausadhi.R
 import com.example.aausadhi.model.ProductModel
+import com.example.aausadhi.ui.activity.UpdateProductActivity
+
 //import com.example.aausadhi.ui.activity.UpdateProductActivity
 
 class ProductAdapter(
@@ -40,11 +43,11 @@ class ProductAdapter(
         holder.pPrice.text=product.price.toString()
         holder.Category.text=product.category
         holder.Dosage.text=product.dosage
-//        holder.edit.setOnClickListener{
-//            val intent=Intent(context,UpdateProductActivity::class.java)
-//            intent.putExtra("id",productList[position].ID)
-//            context.startActivity(intent)
-//        }
+        holder.edit.setOnClickListener{
+            val intent= Intent(context, UpdateProductActivity::class.java)
+            intent.putExtra("id",productList[position].id)
+            context.startActivity(intent)
+        }
     }
     fun updateData(products: List<ProductModel>?){
         productList.clear()
