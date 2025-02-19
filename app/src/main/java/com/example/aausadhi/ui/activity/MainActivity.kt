@@ -8,7 +8,6 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import android.widget.Toast
 import com.example.aausadhi.R
 import com.example.aausadhi.repository.UserRepositoryImpl
 import com.example.aausadhi.utils.LocalStorage
@@ -41,7 +40,7 @@ class MainActivity : AppCompatActivity() {
 
         if (email != null && password != null) {
             // Attempt automatic login
-            userViewModel.login(email, password) { success, message ->
+            userViewModel.login(email, password) { success, _ ->
                 if (success) {
                                 val intent = Intent(this@MainActivity, ProductDashboardActivity::class.java)
                                 startActivity(intent)

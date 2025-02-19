@@ -9,13 +9,13 @@ import com.google.firebase.database.ValueEventListener
 
 class ProductRepositoryImpl: ProductRepository {
 
-    val database: FirebaseDatabase= FirebaseDatabase.getInstance()
-    val reference: DatabaseReference = database.reference.child("products")
+    private val database: FirebaseDatabase= FirebaseDatabase.getInstance()
+    private val reference: DatabaseReference = database.reference.child("products")
 
     override fun addProduct(product: ProductModel, callback: (Boolean, String) -> Unit) {
-        var id=reference.push().key.toString() //randomly generating I
+        val id=reference.push().key.toString() //randomly generating I
         reference.child(id).setValue(product)
-        product.ID=id
+        product.id=id
         reference.child(id).setValue(product).addOnCompleteListener {
             if(it.isSuccessful){
                 callback(true,"Product Added Successfully")
@@ -62,7 +62,7 @@ class ProductRepositoryImpl: ProductRepository {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                callback(null,false,error.message.toString())
+                callback(null,false, error.message)
             }
         }
 
@@ -72,7 +72,7 @@ class ProductRepositoryImpl: ProductRepository {
     override fun getAllProducts(callback: (List<ProductModel>?, Boolean, String) -> Unit) {
         reference.addValueEventListener(object:ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
-                var products= mutableListOf<ProductModel>()
+                val products= mutableListOf<ProductModel>()
                 if (snapshot.exists()){
                     for(eachProduct in snapshot.children){
                         val model= snapshot.getValue(ProductModel::class.java)
@@ -85,7 +85,7 @@ class ProductRepositoryImpl: ProductRepository {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                callback(null,false,error.message.toString())
+                callback(null,false, error.message)
             }
 
         })

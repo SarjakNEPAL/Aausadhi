@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.example.aausadhi.databinding.ActivityProductDashboardBinding
-import com.example.aausadhi.utils.LoadingUtils
 import com.example.aausadhi.R
 import com.example.aausadhi.ui.fragment.FirstFragment
 import com.example.aausadhi.ui.fragment.SecondFragment
@@ -18,15 +17,13 @@ import com.example.aausadhi.ui.fragment.ProfileFragment
 
 class ProductDashboardActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProductDashboardBinding
-    private lateinit var loadingUtils: LoadingUtils
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         binding = ActivityProductDashboardBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        //bottoView -> bottomnavigationview ko id
 
         replaceFragment(FirstFragment())
 

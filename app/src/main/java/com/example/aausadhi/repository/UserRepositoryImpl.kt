@@ -1,8 +1,6 @@
 package com.example.aausadhi.repository
 
-import android.view.Display.Mode
 import com.example.aausadhi.model.UserModel
-import com.example.aausadhi.ui.fragment.ProfileFragment
 import com.example.aausadhi.utils.LocalStorage
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -26,7 +24,7 @@ class UserRepositoryImpl : UserRepository {
             if (it.isSuccessful){
                 callback(true,"Login Success")
             }else{
-                callback(false,it.exception?.message.toString()) //passes error messege
+                callback(false,it.exception?.message.toString()) //passes error message
             }
         }
     }
@@ -50,7 +48,7 @@ class UserRepositoryImpl : UserRepository {
     override fun forgetPassword(email: String, callback: (Boolean, String) -> Unit) {
         auth.sendPasswordResetEmail(email).addOnCompleteListener {
             if(it.isSuccessful){
-                callback(true,"passsword reset link is sent to $email")
+                callback(true,"password reset link is sent to $email")
             }
             else{
                 callback(false,it.exception?.message.toString())
@@ -78,8 +76,8 @@ class UserRepositoryImpl : UserRepository {
     }
 
     override fun getDataFromDB(userID: String, callback: (UserModel?, Boolean, String) -> Unit) {
-        reference.child(userID).addValueEventListener( // continuoutsly refreshes
-            object: ValueEventListener{  //hover garne and implement members
+        reference.child(userID).addValueEventListener( // continuously refreshes
+            object: ValueEventListener{  //hover garner and implement members
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (snapshot.exists()){
                         val model= snapshot.getValue(UserModel::class.java)
@@ -90,7 +88,7 @@ class UserRepositoryImpl : UserRepository {
                 override fun onCancelled(error: DatabaseError) {
                     callback(null,false,error.message)
                 }
-            } //makes anonymus function
+            } //makes anonymous function
         )
     }
 

@@ -1,7 +1,6 @@
 package com.example.aausadhi.repository
 
 import com.example.aausadhi.model.UserModel
-import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseUser
 
 interface UserRepository {

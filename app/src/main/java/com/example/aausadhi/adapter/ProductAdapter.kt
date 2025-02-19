@@ -2,7 +2,6 @@ package com.example.aausadhi.adapter
 
 
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,7 +39,7 @@ class ProductAdapter(
         holder.pDesc.text=product.description
         holder.pPrice.text=product.price.toString()
         holder.Category.text=product.category
-        holder.Dosage.text=product.Dosage
+        holder.Dosage.text=product.dosage
 //        holder.edit.setOnClickListener{
 //            val intent=Intent(context,UpdateProductActivity::class.java)
 //            intent.putExtra("id",productList[position].ID)
@@ -56,7 +55,7 @@ class ProductAdapter(
     }
 
     fun getProductId(position: Int):String{
-        return productList[position].ID
+        return productList[position].id
     }
 
 }

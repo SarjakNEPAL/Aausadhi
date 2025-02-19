@@ -15,33 +15,35 @@ class ProductViewModel (val repo: ProductRepository){
     fun deleteProduct(id:String,callback: (Boolean, String) -> Unit){
         repo.deleteProduct(id,callback)
     }
-    var _product =MutableLiveData<ProductModel?>()
-    var products =MutableLiveData<ProductModel?>()
-        get()= _product
+    var _products = MutableLiveData<ProductModel?>()
+    var products = MutableLiveData<ProductModel?>()
+        get() = _products
 
-    var _allProducts =MutableLiveData<List<ProductModel>?>()
-    var allProducts =MutableLiveData<List<ProductModel>?>()
-        get()= _allProducts
+    var _allProducts = MutableLiveData<List<ProductModel>?>()
+    var allProducts = MutableLiveData<List<ProductModel>?>()
+        get() = _allProducts
 
-    fun getProductById(id:String){
-        repo.getProductById(id){
-            product,success,message->
+
+    fun getProductById(productId:String){
+        repo.getProductById(productId){
+                product,success,message->
             if(success){
-                _product.value=product
+                _products.value = product
             }
-        }}
+        }
+    }
 
     var _loadingState= MutableLiveData<Boolean>() /// make variable for particular variable
     var loadingState= MutableLiveData<Boolean>()
         get()=_loadingState
-    fun getAllProducts(){
-        _loadingState.value=true
+    fun getAllProduct(){
+        _loadingState.value = true
         repo.getAllProducts(){
-            data,success,messege->
-                if(success){
-                    _allProducts.value=data
-                    _loadingState.value=false
-                }
-        }
+                products, success, message ->
+            if(success){
+                _allProducts.value = products
+                _loadingState.value = false
             }
+        }
+    }
 }
