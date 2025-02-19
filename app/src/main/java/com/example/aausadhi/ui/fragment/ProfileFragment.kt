@@ -7,11 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.FragmentActivity
 import com.example.aausadhi.R
 import com.example.aausadhi.databinding.FragmentProfileBinding
 import com.example.aausadhi.repository.UserRepositoryImpl
 import com.example.aausadhi.model.UserModel
 import com.example.aausadhi.ui.activity.ProductDashboardActivity
+import com.example.aausadhi.ui.activity.UpdateProductActivity
 import com.example.aausadhi.viewmodel.UserViewModel
 
 
@@ -47,6 +49,12 @@ class ProfileFragment : Fragment() {
             binding.nameData.text= users?.fullName
             binding.locationData.text=users?.address
 
+        }
+
+        binding.editProfile.setOnClickListener{
+            val intent= Intent(context,UpdateProductActivity::class.java)
+            context?.startActivity(intent)
+            (context as? FragmentActivity)?.finish()
         }
 
         binding.logoutSection.setOnClickListener{
