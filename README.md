@@ -6,8 +6,7 @@ Done by : Sarjak Bhandari
 (Coventry ID: 14811977)
 BATCH 35 B
 
-# AAUSADHI 
-<H2>MEDICINE INFORMATION SHARING APP</H2>
+#MEDICINE #INFORMATION #SHARING #APP
 This app enables people to share about medicines
 medicine details include:
   - Name
