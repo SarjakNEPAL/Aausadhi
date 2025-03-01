@@ -15,6 +15,7 @@ import com.example.aausadhi.repository.UserRepositoryImpl
 import com.example.aausadhi.utils.LoadingUtils
 import com.example.aausadhi.utils.LocalStorage
 import com.example.aausadhi.viewmodel.UserViewModel
+import com.google.firebase.database.core.view.View
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
@@ -56,11 +57,15 @@ class LoginActivity : AppCompatActivity() {
             userViewModel.forgetPassword(email){
                     success, message->
                 if (success) {
+
                     Toast.makeText(
+
                         this, "$message Redirecting To Login Page !", Toast.LENGTH_LONG
                     ).show()
                     startActivity(Intent(this@LoginActivity,RegisterActivity::class.java))
                 } else {
+
+
                     Toast.makeText(
                         this, message, Toast.LENGTH_SHORT
                     ).show()
@@ -83,6 +88,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         if (password.isEmpty()) {
+
             binding.loginPasswordEntry.error = "Password is required"
             binding.loginPasswordEntry.requestFocus()
             return
@@ -100,6 +106,8 @@ class LoginActivity : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             }else{
+                binding.resultText.text="Login failed"
+                binding.resultText.visibility=android.view.View.GONE
                 Toast.makeText(this@LoginActivity, message, Toast.LENGTH_SHORT).show()
             }
         }
