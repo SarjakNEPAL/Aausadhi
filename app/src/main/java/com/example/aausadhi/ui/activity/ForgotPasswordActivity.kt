@@ -41,8 +41,12 @@ class ForgotPasswordActivity : AppCompatActivity() {
         auth.sendPasswordResetEmail(email)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
+                    binding.resultForgot.text="OK"
+                    binding.resultForgot.visibility=android.view.View.GONE
                     Toast.makeText(this, "Email sent successfully", Toast.LENGTH_SHORT).show()
                 } else {
+                    binding.resultForgot.text="!OK"
+                    binding.resultForgot.visibility=android.view.View.GONE
                     Toast.makeText(this, "Failed to send email", Toast.LENGTH_SHORT).show()
                 }
             }

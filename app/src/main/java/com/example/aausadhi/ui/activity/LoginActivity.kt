@@ -51,28 +51,7 @@ class LoginActivity : AppCompatActivity() {
         binding.forgotPassword.setOnClickListener {
             startActivity(Intent(this@LoginActivity,ForgotPasswordActivity::class.java))
         }
-        binding.forgotPassword.setOnClickListener{
-            loadingUtils.show()
-            val email=binding.editEmailLogin.text.toString()
-            userViewModel.forgetPassword(email){
-                    success, message->
-                if (success) {
 
-                    Toast.makeText(
-
-                        this, "$message Redirecting To Login Page !", Toast.LENGTH_LONG
-                    ).show()
-                    startActivity(Intent(this@LoginActivity,RegisterActivity::class.java))
-                } else {
-
-
-                    Toast.makeText(
-                        this, message, Toast.LENGTH_SHORT
-                    ).show()
-                }
-                loadingUtils.dismiss()
-            }
-        }
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
