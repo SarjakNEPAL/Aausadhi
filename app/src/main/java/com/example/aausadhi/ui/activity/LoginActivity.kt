@@ -59,7 +59,7 @@ class LoginActivity : AppCompatActivity() {
                     Toast.makeText(
                         this, "$message Redirecting To Login Page !", Toast.LENGTH_LONG
                     ).show()
-                    startActivity(Intent(this@LoginActivity,ProductDashboardActivity::class.java))
+                    startActivity(Intent(this@LoginActivity,RegisterActivity::class.java))
                 } else {
                     Toast.makeText(
                         this, message, Toast.LENGTH_SHORT
